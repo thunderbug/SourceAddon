@@ -32,7 +32,7 @@ public void OnClientPostAdminCheck(int client)
 		return;
 		
 	decl String:playerName[64];
-	GetClientName(client, playerName, sizeof(playerName);
+	GetClientName(client, playerName, sizeof(playerName));
 	
 	decl String:playerIP[16]
 	GetClientIP(client, playerIP, sizeof(playerIP), true);
