@@ -1,6 +1,6 @@
 #include <sourcemod>
 
-private Database db;
+Database db;
 
 public Plugin:myinfo = 
 {
