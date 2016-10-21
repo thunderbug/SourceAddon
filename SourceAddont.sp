@@ -40,9 +40,7 @@ public void OnClientPostAdminCheck(int client)
 	GetClientAuthId(client, AuthId_Steam3, playerGuid, sizeof(playerGuid));
 	
 	char query[200];
-	Format(query, sizeof(query), "INSERT INTO `users_online1` VALUES '%i', '%s', '%i', '%s', '0', '0', '0', '%i', '%s'", client, playerName, client, playerIP, team, playerGuid);
-	
-	PrintToServer(query);
-	
+	Format(query, sizeof(query), "INSERT INTO `users_online1` VALUES ('%i', '%s', '%i', '%s', '0', '0', '0', '%i', '%s')", client, playerName, client, playerIP, team, playerGuid);
+
 	SQL_FastQuery(db, query);
 }
