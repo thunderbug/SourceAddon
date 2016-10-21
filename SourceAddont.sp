@@ -27,10 +27,7 @@ public void OnPluginStart()
 }
 
 public void OnClientPostAdminCheck(int client)
-{
-	if (IsFakeClient(client))
-		return;
-		
+{		
 	decl String:playerName[64];
 	GetClientName(client, playerName, sizeof(playerName));
 	
@@ -44,6 +41,8 @@ public void OnClientPostAdminCheck(int client)
 	
 	char query[200];
 	Format(query, sizeof(query), "INSERT INTO `users_online1` VALUES '%i', '%s', '%i', '%s', '0', '0', '0', '%i', '%s'", client, playerName, client, playerIP, team, playerGuid);
+	
+	PrintToServer(query);
 	
 	SQL_FastQuery(db, query);
 }
