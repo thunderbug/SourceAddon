@@ -91,7 +91,7 @@ public OnSocketReceive(Handle:socket, String:receiveData[], const dataSize) {
 			//Update query
 			char query[200];
 			Format(query, sizeof(query), "UPDATE `users_online%i` SET `users_online_level` = '%s' WHERE `users_online_id` = '%i';", addonID, receiveData, i);
-	
+			PrintToServer(query);
 			SQL_FastQuery(db, query);
 		}
 	}
