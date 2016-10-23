@@ -33,7 +33,7 @@ public void OnPluginStart()
 		PrintToServer("[Addon] Connected to mysql server");
 	}
 	
-	new Handle:socket = SocketCreate(SOCKET_TCP, OnSocketError);
+	decl Handle:socket = SocketCreate(SOCKET_TCP, OnSocketError);
 	SocketConnect(socket, OnSocketConnected, OnSocketReceive, OnSocketDisconnected, "obelix.justforfun-gaming.com", 53259);
 	
 	sv_addonID = CreateConVar("sv_addonid", "1", "AddonID");
@@ -84,7 +84,7 @@ public OnSocketConnected(Handle:socket, any:arg) {
 	PrintToServer("[Addon] Connected to master server");
 }
 
-public OnSocketReceive(Handle:socket, String:receiveData[], const dataSize) {
+public OnSocketReceive(Handle:socket, String:receiveData[], const dataSize, any:hFile) {
 	for (new i = 1; i <= 64; i++)
 	{
 		if(!checkLevel[i]){
@@ -97,7 +97,7 @@ public OnSocketReceive(Handle:socket, String:receiveData[], const dataSize) {
 	}
 }
 
-public OnSocketDisconnected(Handle:socket) {
+public OnSocketDisconnected(Handle:socket, any:hFile) {
 	CloseHandle(socket);
 	
 	PrintToServer("[Addon] Master Server Disconnected");
@@ -105,7 +105,7 @@ public OnSocketDisconnected(Handle:socket) {
 	SocketConnect(socket, OnSocketConnected, OnSocketReceive, OnSocketDisconnected, "obelix.justforfun-gaming.com", 53259);
 }
 
-public OnSocketError(Handle:socket, const errorType, const errorNum) {
+public OnSocketError(Handle:socket, const errorType, const errorNum, any:hFile) {
 	CloseHandle(socket);
 	
 	PrintToServer("[Addon] Master Server Disconnected");
