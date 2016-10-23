@@ -3,7 +3,7 @@
 
 Database db;
 ConVar sv_addonID;
-Any socket;
+any:socket;
 
 int addonID;
 
