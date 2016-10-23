@@ -3,6 +3,7 @@
 
 Database db;
 ConVar sv_addonID;
+decl Handle socket;
 
 int addonID;
 
@@ -33,7 +34,7 @@ public void OnPluginStart()
 		PrintToServer("[Addon] Connected to mysql server");
 	}
 	
-	decl Handle:socket = SocketCreate(SOCKET_TCP, OnSocketError);
+	socket = SocketCreate(SOCKET_TCP, OnSocketError);
 	SocketConnect(socket, OnSocketConnected, OnSocketReceive, OnSocketDisconnected, "obelix.justforfun-gaming.com", 53259);
 	
 	sv_addonID = CreateConVar("sv_addonid", "1", "AddonID");
