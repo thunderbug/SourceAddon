@@ -3,7 +3,7 @@
 
 Database db;
 ConVar sv_addonID;
-any:socket;
+Handle Socket;
 
 int addonID;
 
@@ -34,8 +34,8 @@ public void OnPluginStart()
 		PrintToServer("[Addon] Connected to mysql server");
 	}
 	
-	socket = SocketCreate(SOCKET_TCP, OnSocketError);
-	SocketConnect(socket, OnSocketConnected, OnSocketReceive, OnSocketDisconnected, "obelix.justforfun-gaming.com", 53259);
+	Socket = SocketCreate(SOCKET_TCP, OnSocketError);
+	SocketConnect(Socket, OnSocketConnected, OnSocketReceive, OnSocketDisconnected, "obelix.justforfun-gaming.com", 53259);
 	
 	sv_addonID = CreateConVar("sv_addonid", "1", "AddonID");
 }
@@ -69,10 +69,11 @@ public void OnClientPostAdminCheck(int client)
 	
 	decl String:masterLevel[100];
 	Format(masterLevel, sizeof(masterLevel), "110;%s\n", playerIP);
-	SocketSend(socket, masterLevel);	
+	
+	SocketSend(Socket, masterLevel);	
 }
 
-public void void OnClientDisconnect(int client)
+public void OnClientDisconnect(int client)
 {
 	char query[200];
 	Format(query, sizeof(query), "DELETE FROM `users_online%i` WHERE `users_online_id` = '%i';", addonID, client);
@@ -103,7 +104,7 @@ public OnSocketDisconnected(Handle:socket, any:hFile) {
 	
 	PrintToServer("[Addon] Master Server Disconnected");
 	
-	SocketConnect(socket, OnSocketConnected, OnSocketReceive, OnSocketDisconnected, "obelix.justforfun-gaming.com", 53259);
+	SocketConnect(Socket, OnSocketConnected, OnSocketReceive, OnSocketDisconnected, "obelix.justforfun-gaming.com", 53259);
 }
 
 public OnSocketError(Handle:socket, const errorType, const errorNum, any:hFile) {
@@ -111,5 +112,5 @@ public OnSocketError(Handle:socket, const errorType, const errorNum, any:hFile) 
 	
 	PrintToServer("[Addon] Master Server Disconnected");
 	
-	SocketConnect(socket, OnSocketConnected, OnSocketReceive, OnSocketDisconnected, "obelix.justforfun-gaming.com", 53259);
+	SocketConnect(Socket, OnSocketConnected, OnSocketReceive, OnSocketDisconnected, "obelix.justforfun-gaming.com", 53259);
 }
